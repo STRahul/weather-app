@@ -1,8 +1,9 @@
+import WeatherApp from './Components/Weather-App/WeatherApp';
  
 function App() {
   return (
     <>
-      <h1>Weather app</h1>
+      <WeatherApp />
     </>
   );
 }
