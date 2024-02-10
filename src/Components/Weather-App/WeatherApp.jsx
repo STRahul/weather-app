@@ -6,6 +6,7 @@ import clear_icon from "../Assets/clear.png";
 import humidity_icon from "../Assets/humidity.png";
 import wind_icon from "../Assets/wind.png";
 import { API_URL, weathers } from "../../constant";
+import WeatherElement from "./WeatherElement";
 
 const WeatherApp = () => {
   const [inputText, setInputText] = useState("");
@@ -47,20 +48,8 @@ const WeatherApp = () => {
         <div className="weather-location">{data?.name}</div>
 
         <div className="data-container">
-          <div className="element">
-            <img src={humidity_icon} alt="" className="icon" />
-            <div className="data">
-              <div className="humidity-percent">{data?.main?.humidity} %</div>
-              <div className="text">Humidity</div>
-            </div>
-          </div>
-          <div className="element">
-            <img src={wind_icon} alt="" className="icon" />
-            <div className="data">
-              <div className="humidity-percent">{data?.wind?.speed} km/hr</div>
-              <div className="text">Wind Speed</div>
-            </div>
-          </div>
+          <WeatherElement icon_url={humidity_icon} name="Humidity" value={data?.main?.humidity} />
+          <WeatherElement icon_url={wind_icon} name="Wind Speed" value={data?.wind?.speed} />
         </div>
       </>
     );
