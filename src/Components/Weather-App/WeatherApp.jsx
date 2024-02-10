@@ -33,6 +33,38 @@ const WeatherApp = () => {
     }
   };
 
+  let content = <div className="loaderwrap">
+    <div className="loader"></div>
+  </div>;
+
+  if (data) {
+    content = (
+      <>
+        <div className="weather-image">
+          <img src={weatherIcon} alt="" />
+        </div>
+        <div className="weather-temp">{data?.main?.temp}° C</div>
+        <div className="weather-location">{data?.name}</div>
+
+        <div className="data-container">
+          <div className="element">
+            <img src={humidity_icon} alt="" className="icon" />
+            <div className="data">
+              <div className="humidity-percent">{data?.main?.humidity} %</div>
+              <div className="text">Humidity</div>
+            </div>
+          </div>
+          <div className="element">
+            <img src={wind_icon} alt="" className="icon" />
+            <div className="data">
+              <div className="humidity-percent">{data?.wind?.speed} km/hr</div>
+              <div className="text">Wind Speed</div>
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  }
 
   return (
     <div className="container">
@@ -56,28 +88,7 @@ const WeatherApp = () => {
           <img src={search_icon} alt="" />
         </button>
       </div>
-      <div className="weather-image">
-          <img src={weatherIcon} alt="" />
-        </div>
-        <div className="weather-temp">{data?.main?.temp}° C</div>
-        <div className="weather-location">{data?.name}</div>
-
-        <div className="data-container">
-          <div className="element">
-            <img src={humidity_icon} alt="" className="icon" />
-            <div className="data">
-              <div className="humidity-percent">{data?.main?.humidity} %</div>
-              <div className="text">Humidity</div>
-            </div>
-          </div>
-          <div className="element">
-            <img src={wind_icon} alt="" className="icon" />
-            <div className="data">
-              <div className="humidity-percent">{data?.wind?.speed} km/hr</div>
-              <div className="text">Wind Speed</div>
-            </div>
-          </div>
-        </div>
+      {content}
     </div>
   );
 };

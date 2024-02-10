@@ -89,3 +89,27 @@
     margin-top: 10px;
 }
 
+.loaderwrap{
+    display: flex;
+    justify-content: center;
+    margin: 2rem;
+}
+
+.loader {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 7px solid white;
+    border-bottom: 7px solid rgb(125, 120, 120);
+    animation: loaderAnimation .45s linear infinite;
+}
+
+@keyframes loaderAnimation {
+    0%{
+      transform: rotate(0deg);
+    }
+
+    100%{
+      transform: rotate(360deg);
+    }
+}
