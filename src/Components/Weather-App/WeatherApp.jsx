@@ -13,6 +13,7 @@ const WeatherApp = () => {
   const [searchText, setSearchText] = useState("Agra");
   const [data, setData] = useState();
   const [weatherIcon, setWeatherIcon] = useState(clear_icon);
+  const [error, setError] = useState();
 
   useEffect(() => {
     fetchData();
@@ -25,20 +26,27 @@ const WeatherApp = () => {
 
       if (data?.name) {
         setData(data);
+        setWeatherIcon(weathers[data?.weather[0]?.main]);
       }
-
-      setWeatherIcon(weathers[data?.weather[0]?.main]);
+      if(data?.cod==404){
+        alert(data?.message || 'City not found!')
+      }
     } catch (err) {
-      alert("city not found");
-      return 0;
+      setError(err?.message || "Failed to fetch data!");
     }
   };
 
-  let content = <div className="loaderwrap">
-    <div className="loader"></div>
-  </div>;
+  let content;
 
-  if (data) {
+  if (!data && !error) {
+    content = (
+      <div className="loaderwrap">
+        <div className="loader"></div>
+      </div>
+    );
+  }
+
+  if (data && !error) {
     content = (
       <>
         <div className="weather-image">
@@ -48,8 +56,16 @@ const WeatherApp = () => {
         <div className="weather-location">{data?.name}</div>
 
         <div className="data-container">
-          <WeatherElement icon_url={humidity_icon} name="Humidity" value={data?.main?.humidity} />
-          <WeatherElement icon_url={wind_icon} name="Wind Speed" value={data?.wind?.speed} />
+          <WeatherElement
+            icon_url={humidity_icon}
+            name="Humidity"
+            value={data?.main?.humidity}
+          />
+          <WeatherElement
+            icon_url={wind_icon}
+            name="Wind Speed"
+            value={data?.wind?.speed}
+          />
         </div>
       </>
     );
@@ -77,6 +93,7 @@ const WeatherApp = () => {
           <img src={search_icon} alt="" />
         </button>
       </div>
+      {error && <p className="error-text">{error}</p>}
       {content}
     </div>
   );

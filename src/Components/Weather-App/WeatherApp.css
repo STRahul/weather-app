@@ -113,3 +113,10 @@
       transform: rotate(360deg);
     }
 }
+
+.error-text{
+    text-align: center;
+    font-size: 35px;
+    font-size: bold;
+    color: rgb(203, 24, 24);
+}
