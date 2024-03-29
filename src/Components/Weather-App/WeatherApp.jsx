@@ -16,25 +16,25 @@ const WeatherApp = () => {
   const [error, setError] = useState();
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(API_URL + searchText);
+        const data = await response.json();
+  
+        if (data?.name) {
+          setData(data);
+          setWeatherIcon(weathers[data?.weather[0]?.main]);
+        }
+        if(data?.cod===404){
+          alert(data?.message || 'City not found!')
+        }
+      } catch (err) {
+        setError(err?.message || "Failed to fetch data!");
+      }
+    };
     fetchData();
   }, [searchText]);
 
-  const fetchData = async () => {
-    try {
-      const response = await fetch(API_URL + searchText);
-      const data = await response.json();
-
-      if (data?.name) {
-        setData(data);
-        setWeatherIcon(weathers[data?.weather[0]?.main]);
-      }
-      if(data?.cod==404){
-        alert(data?.message || 'City not found!')
-      }
-    } catch (err) {
-      setError(err?.message || "Failed to fetch data!");
-    }
-  };
 
   let content;
 
